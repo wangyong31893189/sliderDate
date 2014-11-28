@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset ="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=1, minimum-scale=1.0, maximum-scale=1.0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<META content="no-cache" http-equiv="pragma">
+<META content="no-cache" http-equiv="cache-control">
+<META content="0" http-equiv="expires">
+<style>
+</style>
+<title>
+仿iphone滑动日期选择控件
+</title>
+</head>
+<body>
+<section>	
+参数设置：<br>
+	<!--<lable>	星期前缀weekName：</lable><br>
+	<input type="text" id="weekName" placeholder="星期前缀---例：星期" /> <br>-->
+	<lable>	皮肤样式style： 可选 style1 default </lable><br>
+	<input type="text" id="style" placeholder="皮肤样式：默认为default" /> <br>
+	<lable>	最大显示当前年份多少年max：</lable><br>
+	<input type="text" id="max" placeholder="默认20" /> <br>
+	<lable>	最大显示的年份maxYear：</lable><br>
+	<input type="text" id="maxYear" placeholder="默认为空，有这个值会忽略max" /> <br>
+	<lable>	最小显示当前年份多少年min：</lable><br>
+	<input type="text" id="min" placeholder="默认20" /> <br>
+	<lable>	最小显示的年份minYear：</lable><br>
+	<input type="text" id="minYear" placeholder="默认为空，有这个值会忽略min" /> <br>
+	<lable>	完成按钮名称：</lable><br>
+	<input type="text" id="btnName" placeholder="星期前缀---例：星期" /> <br>
+	<lable>	日期显示格式化：y代表年  M代表月   d代表天  h代表小时  m代表分 s代表秒 S代表毫秒   q 代表季度  w代表星期</lable><br>
+	<input type="text" id="format" placeholder="yyyy-MM-dd" /> <br>
+	<lable>	日期风格显示：y代表年  M代表月   d代表天  h代表小时  m代表分 s代表秒 </lable><br>
+	<input type="text" id="showStyle" placeholder="默认显示 yMdhms" /> <br>
+	<lable>	动画时间：单位毫秒</lable><br>
+	<input type="text" id="animateTime" placeholder="默认为500毫秒" /> <br>
+	<lable>	控件显示位置：top center bottom</lable><br>
+	<input type="text" id="position" placeholder="默认为center" /> <br>
+	<lable>	控件显示的单位：</lable><br>
+	<input type="text" id="unitArr" placeholder='年,月,日,时,分,秒' /> <br>
+	<lable>	显示的星期：</lable><br>
+	<input type="text" id="weekArr" placeholder='日,一,二,三,四,五,六' /> <br>
+	<lable>	当前年：</lable><br>
+	<input type="text" id="year" placeholder='2014' /> <br>
+	<lable>	当前月：</lable><br>
+	<input type="text" id="month" placeholder='11' /> <br>
+	<lable>	当前日：</lable><br>
+	<input type="text" id="day" placeholder='28' /> <br>
+	<lable>	当前时：</lable><br>
+	<input type="text" id="hour" placeholder='14' /> <br>
+	<lable>	当前分：</lable><br>
+	<input type="text" id="minitus" placeholder='31' /> <br>
+	<lable>	当前秒：</lable><br>
+	<input type="text" id="seconds" placeholder='20' /> <br>
+
+
+	<div id="date" placeholder="选择日期" value="" style="font-size:18px;font-weight:bolder;color:red;width:100%;height:45px;line-height:45px;margin-top:20px;border:1px solid gray;border-radius:8px;">请选择日期</div>
+<!--
+	<div id="cal_bg" class="cal_bg">
+	
+	</div>
+	<div class="calender" id="calender" >
+		<div class="cal_btn">
+			<button class="cal_btn_finish" id="cal_btn_finish">完成</button>
+		</div>
+		<div class="calender_container">
+		<div class="cal_container" id="cal_container">
+		<ul class="cal_year" id="cal_year">
+			
+		</ul>
+		<ul class="cal_month" id="cal_month">
+		
+		</ul>
+		<ul class="cal_day" id="cal_day">
+			
+		</ul>
+		<ul class="cal_hour" id="cal_hour">
+			
+		</ul>
+		<ul class="cal_minitus" id="cal_minitus">
+			
+		</ul>
+		<ul class="cal_second" id="cal_second">
+		
+		</ul>
+		</div>
+	</div>
+	</div>-->
+</section>
+	
+<!--script src="http://pic.99wuxian.com/basic/wap/js/min/plugs/sea/sea.js" charset="utf-8" ></script-->
+<!--
+    引入sea.js 放置于此
+-->
+<script
+    src="../wap/js/source/plugs/sea/sea.js"   
+    data-main="./test.js"
+></script>
+</body>
+</html>
