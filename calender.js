@@ -154,16 +154,18 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 				var calenderHtml='';
 				calender=that.calender=document.createElement("div");
 				calender.setAttribute("id","calender");
-				calender.setAttribute("class","calender"+style);
-				calender.innerHTML='<div class="cal_btn">'+that.options.headerName+'<button class="cal_btn_finish'+style+'" id="cal_btn_finish">'+btnName+'</button></div><div class="calender_container'+style+'"><div class="cal_container'+style+'" id="cal_container"></div></div>';
+				calender.setAttribute("class","calender");
+				calender.innerHTML='<div class="cal_btn">'+that.options.headerName+'<button class="cal_btn_finish" id="cal_btn_finish">'+btnName+'</button></div><div class="calender_container"><div class="cal_container" id="cal_container"></div></div>';
 				document.body.appendChild(calender);
+				calender.style.display="none";
 			}
 			if(!calenderBg){
 				var calenderHtml='';
 				calenderBg=that.calenderBg=document.createElement("div");
 				calenderBg.setAttribute("id","cal_bg");
-				calenderBg.setAttribute("class","cal_bg"+style);
+				calenderBg.setAttribute("class","cal_bg");
 				document.body.appendChild(calenderBg);
+				calenderBg.style.display="none";
 			}
 			var unit=that.unit="width";
 			var moveBy=that.moveBy="marginLeft";
@@ -206,22 +208,22 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			for(var i=0,len=showStyles.length;i<len;i++){
 				switch(showStyles[i]){
 					case "y":
-						calenderArr.push('<ul class="cal_year'+style+'" id="cal_year"></ul>');
+						calenderArr.push('<ul class="cal_year" id="cal_year"></ul>');
 						break;
 					case "M":
-						calenderArr.push('<ul class="cal_month'+style+'" id="cal_month"></ul>');
+						calenderArr.push('<ul class="cal_month" id="cal_month"></ul>');
 						break;
 					case "d":
-						calenderArr.push('<ul class="cal_day'+style+'" id="cal_day"></ul>');
+						calenderArr.push('<ul class="cal_day" id="cal_day"></ul>');
 						break;
 					case "h":
-						calenderArr.push('<ul class="cal_hour'+style+'" id="cal_hour"></ul>');
+						calenderArr.push('<ul class="cal_hour" id="cal_hour"></ul>');
 						break;
 					case "m":
-						calenderArr.push('<ul class="cal_minitus'+style+'" id="cal_minitus"></ul>');
+						calenderArr.push('<ul class="cal_minitus" id="cal_minitus"></ul>');
 						break;
 					case "s":
-						calenderArr.push('<ul class="cal_second'+style+'" id="cal_second"></ul>');
+						calenderArr.push('<ul class="cal_second" id="cal_second"></ul>');
 						break;
 					default:
 						break;				
@@ -364,8 +366,8 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						height=parseInt(oUls[i].children[0].style.height,10);
 					}*/
 					oUls[i].style[transitionDuration] ="0";
-					oUls[i].style[moveBy]=-(index-1)*height+"px";	
-					oUls[i].children[index-1].className="active";				
+					oUls[i].style[moveBy]=-index*height+"px";	
+					oUls[i].children[index].className="active";				
 				}else if(oUls[i].className.indexOf("cal_month")!=-1){
 					var monthArr=[];
 					var index=0;
@@ -428,10 +430,10 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						minitusArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=minitusArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
 					if(!height){
 						height=parseInt(oUls[i].children[0].style.height,10);
-					}
+					}*/
 					oUls[i].style[transitionDuration] ="0";
 					oUls[i].style[moveBy]=-index*height+"px";
 					oUls[i].children[index].className="active";
@@ -615,19 +617,19 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 				//}
 				//var obj=document.getElementById(obj.id);
 				var oHeight=obj.offsetHeight;
-				console.log("当前天的高度为"+oHeight+"----"+obj.children.length*obj.children);
-				if(left>=0){
-					left=-oHeight/2;
-				}else if(left<=-oHeight/2){
-					//that.slider.style[transitionDuration] = "0";
-					left=0;
-				}
+				//console.log("当前天的高度为"+oHeight+"----"+obj.children.length*obj.children);
 				if(Math.abs(left)>10){
 					//that.isMoved=true;
 					obj.setAttribute("data-move","true");
 				}else{					
 					//that.isMoved=false;
 					obj.setAttribute("data-move","false");
+				}
+				if(left>=0){
+					left=-oHeight/2;
+				}else if(left<=-oHeight/2){
+					//that.slider.style[transitionDuration] = "0";
+					left=0;
 				}
 				obj.style[transitionDuration] = "0";
 				obj.style[moveBy]=left+"px";

@@ -33,14 +33,17 @@ body{margin: 0;padding: 0;}
 	.cal_btn{
 		height:50px;
 		line-height:50px;
-		text-align:right;
 		border:1px solid #ccc;
+		text-align:left;
+		padding-left: 10px;
 		background:-webkit-gradient(linear,0% 0%, 0% 100%, from(#000000), to(#FAFAFA), color-stop(0.5,#7C798A));
 		background:-moz-linear-gradient(0% 0% 270deg, #000000,#FAFAFA, #7C798A 50%);
 	}
 	.cal_btn_finish{
 		height:35px;		
 		width:80px;
+		margin-top:10px;		
+		float: right;
 		margin-right: 20px;
 		background:#ccc;
 		border:none;

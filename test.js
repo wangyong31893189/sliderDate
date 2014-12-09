@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var Calender=require("./calender");
-	var cal=new Calender({"id":"calender","format":"yyyy-MM-dd hh:mm:ss q S 星期w","btnName":"","style":"style3","showStyle":"yMd","position":"top","currentDay":function(data,obj){
+	var cal=new Calender({"id":"calender","format":"yyyy-MM-dd hh:mm:ss q S 星期w","btnName":"","style":"style3","showStyle":"yMdhms","position":"top","currentDay":function(data,obj){
 		var date=document.getElementById("date");
 		if(date)
 		{
@@ -39,6 +39,13 @@ define(function(require, exports, module) {
 			//cal.show();
 		};
 	}
+	var testBtn=document.getElementById("testBtn");
+	if(testBtn){
+		testBtn.onclick=function(){
+			window.location="test.html";	
+			//cal.show();
+		};
+	}
 	
 	function $(id){
 		
@@ -46,6 +53,10 @@ define(function(require, exports, module) {
 	}
 	
 	function resetParams(){
+		var calender=document.getElementById("calender");
+		if(calender){			
+			document.body.removeChild(calender);
+		}
 		var weekName=$("weekName");
 		if(weekName){
 			cal.options.weekName=weekName;
@@ -53,6 +64,11 @@ define(function(require, exports, module) {
 		var style=$("style");
 		if(style){
 			cal.options.style=style;
+			var links=document.getElementsByTagName("link");
+			for (var i = 0; i < links.length; i++) {
+				//Things[i]
+				document.getElementsByTagName("head")[0].removeChild(links[i])
+			};
 		}
 		var max=$("max");
 		if(max){
@@ -73,6 +89,10 @@ define(function(require, exports, module) {
 		var btnName=$("btnName");
 		if(btnName){
 			cal.options.btnName=btnName;
+		}
+		var headerName=$("headerName");
+		if(headerName){
+			cal.options.headerName=headerName;
 		}
 		var format=$("format");
 		if(format){
