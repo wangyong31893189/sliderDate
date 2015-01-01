@@ -13,7 +13,11 @@ body{margin: 0;padding: 0;}
 	.calender{
 		position:absolute;
 		width:100%;
-		height:100px;
+		/*
+		line-height:300px;
+		*/
+		overflow:hidden;
+		height:300px;
 		cursor:pointer;
 		z-index:999;
 		background:#000;
@@ -46,11 +50,20 @@ body{margin: 0;padding: 0;}
 		border:none;
 		border:1px solid none;
 	}
+	.calender_container{
+		overflow:hidden;
+		height:250px;
+		background: #fff;
+	}
 	.cal_container{
 		width:100%;
 		margin:0 auto;
+		border: 1px solid #ccc;
+		height:50px;
+		/*
 		overflow:hidden;
-		height:50px;		
+		min-width:300px;
+		overflow:hidden;*/
 	}
 	.calender ul{
 		list-style:none;		
@@ -60,15 +73,13 @@ body{margin: 0;padding: 0;}
 		float:left;
 		min-width:50px;
 		text-align:center;
-		overflow:hidden;
-		background:#000;		
+		overflow:hidden;		
 		color:#000;
 	}
 	.calender ul li{
 		width:100%;
 		margin:0 2px;
 		height:50px;
-		background:#fff;
 	}
 	.cal_year{
 		

@@ -61,6 +61,7 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			weekName:"",//星期前缀
 			style:"default",//默认皮肤 现在就一套 1，2，3，4，5
 			monthCount:3,//显示的月份数量
+			height:50,//时间每行行高
 			appType:"air",  //适用的应用类型
 			oneByOne:true,//是否需要 一月一月的滚动  true为需要  false为不需要
 			container:"window",  //外层容器   默认为整个窗口   其它则填写对应的ID
@@ -70,6 +71,7 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			minYear:null,//可以向前查看到哪年  有值则忽略min
 			vScroll:true,//竖向
 			btnName:"完成",//完成按钮名称
+			headerName:"选择时间",//头部选择时间名称
 			animateTime:500,//动画时间
 			selectDay:function(index){ //选择日期
 				console.log("选择日期成功！");
@@ -153,7 +155,7 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 				calender=that.calender=document.createElement("div");
 				calender.setAttribute("id","calender");
 				calender.setAttribute("class","calender"+style);
-				calender.innerHTML='<div class="cal_btn"><button class="cal_btn_finish'+style+'" id="cal_btn_finish">'+btnName+'</button></div><div class="calender_container'+style+'"><div class="cal_container'+style+'" id="cal_container"></div></div>';
+				calender.innerHTML='<div class="cal_btn">'+that.options.headerName+'<button class="cal_btn_finish'+style+'" id="cal_btn_finish">'+btnName+'</button></div><div class="calender_container'+style+'"><div class="cal_container'+style+'" id="cal_container"></div></div>';
 				document.body.appendChild(calender);
 			}
 			if(!calenderBg){
@@ -228,12 +230,15 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			
 			var cal_container=that.$("cal_container");
 			cal_container.innerHTML=calenderArr.join("");
+
+			that.reloadCalender(calender);
+			that.bindCalenderEvent(calender);
 		},show:function(){
 			var that=this;
 			that.calender.style.display="block";
 			that.calenderBg.style.display="block";
-			that.reloadCalender(calender);
-			that.bindCalenderEvent(calender);
+			//that.reloadCalender(calender);
+			//that.bindCalenderEvent(calender);
 		},hide:function(){
 			var that=this;
 			that.calender.style.display="none";
@@ -267,23 +272,47 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			var unitArr=that.options.unitArr;
 			var moveBy=that.moveBy;
 			var date=new Date();
-			if(that.options.year){
-				date.setFullYear(that.options.year);
+			if(that.year){
+				date.setFullYear(that.year);
+			}else{				
+				if(that.options.year){
+					date.setFullYear(that.options.year);
+				}
 			}
-			if(that.options.month){
-				date.setMonth(that.options.month-1);
+			if(that.month){
+				date.setMonth(that.month-1);
+			}else{	
+				if(that.options.month){
+					date.setMonth(that.options.month-1);
+				}
 			}
-			if(that.options.day){
-				date.setDate(that.options.day);
+			if(that.day){
+				date.setDate(that.day);
+			}else{	
+				if(that.options.day){
+					date.setDate(that.options.day);
+				}
 			}
-			if(that.options.hour){
-				date.setHours(that.options.hour);
+			if(that.hour){
+				date.setHours(that.hour);
+			}else{	
+				if(that.options.hour){
+					date.setHours(that.options.hour);
+				}
 			}
-			if(that.options.minitus){
-				date.setMinutes(that.options.minitus);
+			if(that.minitus){
+				date.setMinutes(that.minitus);
+			}else{	
+				if(that.options.minitus){
+					date.setMinutes(that.options.minitus);
+				}
 			}
-			if(that.options.seconds){
-				date.setSeconds(that.options.seconds);
+			if(that.seconds){
+				date.setSeconds(that.seconds);
+			}else{	
+				if(that.options.seconds){
+					date.setSeconds(that.options.seconds);
+				}
 			}
 			var year=that.year=date.getFullYear();//年份
 			var month=that.month=date.getMonth()+1;//月份
@@ -300,7 +329,8 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 			var oMinitus=that.$("cal_minitus");
 			var oSeconds=that.$("cal_second");
 			*/
-			for(var i=0,len=oUls.length;i<len;i++){		
+			var height=that.options.height;
+			for(var i=0,len=oUls.length;i<len;i++){				
 				if(oUls[i].className.indexOf("cal_year")!=-1){
 					var yearArr=[];
 					var index=0;
@@ -329,9 +359,13 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						yearArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=yearArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}*/
 					oUls[i].style[transitionDuration] ="0";
-					oUls[i].style[moveBy]=-index*height+"px";					
+					oUls[i].style[moveBy]=-(index-1)*height+"px";	
+					oUls[i].children[index-1].className="active";				
 				}else if(oUls[i].className.indexOf("cal_month")!=-1){
 					var monthArr=[];
 					var index=0;
@@ -342,9 +376,13 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						monthArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=monthArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}*/
 					oUls[i].style[transitionDuration] ="0";
-					oUls[i].style[moveBy]=-index*height+"px";					
+					oUls[i].style[moveBy]=-index*height+"px";
+					oUls[i].children[index].className="active";				
 				}else if(oUls[i].className.indexOf("cal_day")!=-1){
 					var countDays=that.getCountDays(year,month);
 					var dayArr=[];
@@ -356,9 +394,13 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						dayArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=dayArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}*/
 					oUls[i].style[transitionDuration] ="0";
 					oUls[i].style[moveBy]=-index*height+"px";
+					oUls[i].children[index].className="active";
 				}else if(oUls[i].className.indexOf("cal_hour")!=-1){
 					var hourArr=[];
 					var index=0;
@@ -369,9 +411,13 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						hourArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=hourArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}*/
 					oUls[i].style[transitionDuration] ="0";
 					oUls[i].style[moveBy]=-index*height+"px";
+					oUls[i].children[index].className="active";
 				}else if(oUls[i].className.indexOf("cal_minitus")!=-1){
 					var minitusArr=[];
 					var index=0;
@@ -383,8 +429,12 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 					}
 					oUls[i].innerHTML=minitusArr.join("");
 					var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}
 					oUls[i].style[transitionDuration] ="0";
 					oUls[i].style[moveBy]=-index*height+"px";
+					oUls[i].children[index].className="active";
 				}else if(oUls[i].className.indexOf("cal_second")!=-1){
 					var secondArr=[];
 					var index=0;					
@@ -395,9 +445,13 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 						secondArr.push("<li data-value='"+j+"'>"+j+unitArr[i]+"</li>");
 					}
 					oUls[i].innerHTML=secondArr.join("");
-					var height=oUls[i].children[0].offsetHeight;
+					/*var height=oUls[i].children[0].offsetHeight;
+					if(!height){
+						height=parseInt(oUls[i].children[0].style.height,10);
+					}*/
 					oUls[i].style[transitionDuration] ="0";
 					oUls[i].style[moveBy]=-index*height+"px";
+					oUls[i].children[index].className="active";
 				}
 				oUls[i].innerHTML+=oUls[i].innerHTML;
 			}
@@ -432,7 +486,11 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 				oUls[i].style[transitionProperty] = that.options.useTransform ? cssVendor + 'transform' : moveStyleBy;
 				oUls[i].style[transitionDuration] =that.options.animateTime/1000+"s";
 				oUls[i].style[transformOrigin] = '0 0';
-				oUls[i].style["width"]=100/len+"%";
+				//if(i==len-1){
+				//	oUls[i].style["width"]=(100/len-6)+"%";
+				//}else{
+					oUls[i].style["width"]=100/len+"%";					
+				//}
 				if (that.options.useTransition){
 					oUls[i].style[transitionTimingFunction] =that.sliderFunc;		
 				}
@@ -650,34 +708,70 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 				switch(className){
 					case "cal_year":
 						var index=that.getIndex(obj);
-						var year=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var year=tempObj.getAttribute("data-value");
 						that.year=year;
 						that.setCalenderDay(year,that.month);
 						break;
 					case "cal_month":
 						var index=that.getIndex(obj);
-						var month=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var month=tempObj.getAttribute("data-value");
 						that.month=month;
 						that.setCalenderDay(that.year,month);
 						break;
 					case "cal_day":
 						var index=that.getIndex(obj);
-						var day=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var day=tempObj.getAttribute("data-value");
 						that.day=day;
 						break;
 					case "cal_minitus":
 						var index=that.getIndex(obj);
-						var minitus=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var minitus=tempObj.getAttribute("data-value");
 						that.minitus=minitus;
 						break;
 					case "cal_hour":
 						var index=that.getIndex(obj);
-						var hour=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var hour=tempObj.getAttribute("data-value");
 						that.hour=hour;
 						break;
 					case "cal_second":
 						var index=that.getIndex(obj);
-						var seconds=obj.children[index].getAttribute("data-value");
+						var tempObj=obj.children[index];
+						var tempObjs=obj.children;
+						for (var i = 0,len=tempObjs.length; i < len; i++) {
+							tempObjs[i].className="";
+						};
+						tempObj.className="active";
+						var seconds=tempObj.getAttribute("data-value");
 						that.seconds=seconds;
 						break;
 					default:
@@ -708,6 +802,7 @@ var m = Math,dummyStyle = doc.createElement('div').style,
 					var height=oDay.children[0].offsetHeight;
 					oDay.style[transitionDuration] ="0";
 					oDay.style[moveBy]=-index*height+"px";
+					oDay.children[index].className="active";
 					if(index==0){
 						that.day=1;
 					}

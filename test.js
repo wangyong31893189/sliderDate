@@ -1,6 +1,6 @@
 define(function(require, exports, module) {
 	var Calender=require("./calender");
-	var cal=new Calender({"id":"calender","format":"yyyy-MM-dd hh:mm:ss q S 星期w","showStyle":"yMd","position":"top","currentDay":function(data,obj){
+	var cal=new Calender({"id":"calender","format":"yyyy-MM-dd hh:mm:ss q S 星期w","btnName":"","style":"style3","showStyle":"yMd","position":"top","currentDay":function(data,obj){
 		var date=document.getElementById("date");
 		if(date)
 		{
@@ -26,9 +26,17 @@ define(function(require, exports, module) {
 	var date=document.getElementById("date");
 	if(date){
 		date.onclick=function(){
+			//resetParams();
+			//cal.init();		
+			cal.show();
+		};
+	}
+	var resetBtn=document.getElementById("resetBtn");
+	if(resetBtn){
+		resetBtn.onclick=function(){
 			resetParams();
 			cal.init();		
-			cal.show();
+			//cal.show();
 		};
 	}
 	
